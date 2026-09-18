@@ -1,0 +1,33 @@
+{
+  "name": "ticket-to-ride",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "homepage": "https://github.com/HMHamster88/boardgame-web-ticket-to-ride",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HMHamster88/boardgame-web-ticket-to-ride.git"
+  },
+  "type": "module",
+  "main": "index.js",
+  "workspaces": [
+    "back",
+    "front"
+  ],
+  "scripts": {
+    "link-common": "npm run link-common -w back && npm run link-common -w front",
+    "build-back": "npm run build -w back && npm run copy-back",
+    "build-front": "npm run build -w front && npm run copy-front",
+    "build-all": "npm run build-back && npm run build-front",
+    "copy-back": "node copy.js -back",
+    "copy-front": "node copy.js -front",
+    "create-zip": "node create-zip.js",
+    "create-release": "npm run build-all && npm run create-zip",
+    "proc-routes": "node ./processing/process-routes-images.ts"
+  },
+  "devDependencies": {
+    "adm-zip": "^0.5.18",
+    "dotenv": "^17.4.2"
+  }
+}
