@@ -22,7 +22,8 @@ export class TicketToRideFrontService implements GameFrontService {
             tooMuchOpenedLocomotives: 'Three locomotives were drawn. Discard all cards.',
             chooseRoutesFirst: 'Choose routes first',
             chooseOpenedCard: 'Choose opened card',
-            failedToBuildTunnel: 'Failed to build tunnel'
+            failedToBuildTunnel: 'Failed to build tunnel',
+            lastRound: 'Last round'
         },
         ru: {
             TICKET_TO_RIDE: 'Билет на поезд',
@@ -30,7 +31,8 @@ export class TicketToRideFrontService implements GameFrontService {
             tooMuchOpenedLocomotives: 'Выпало три локомотива. Сброс всех карт.',
             chooseRoutesFirst: 'Сначала выберите маршруты',
             chooseOpenedCard: 'Выберите открытую карту',
-            failedToBuildTunnel: 'Не получилось построить тунель'
+            failedToBuildTunnel: 'Не получилось построить тунель',
+            lastRound: 'Последний раунд'
         }
     }
     gameStaticSettings = {

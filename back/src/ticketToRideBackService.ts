@@ -407,6 +407,7 @@ export class TicketToRideGameBackService implements GameBackService {
                 nextTurn()
                 if (publicPlayerState.trains <= lastLoopTrainCount) {
                     publicState.lastPlayerId = playerId
+                    gameContext.sendNotify(undefined, 'lastRound', {})
                 }
             },
             BuildStationAction: (action: BuildStationAction) => {
