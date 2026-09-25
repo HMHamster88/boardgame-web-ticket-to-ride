@@ -13,7 +13,7 @@ let localization: any = {
         resources: 'Trains: '
     },
     ru: {
-        resources: 'Вогоны: '
+        resources: 'Вагоны: '
     }
 }
 const { t } = useI18n({

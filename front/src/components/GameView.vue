@@ -52,17 +52,17 @@
         </SelectRoutesComponent>
         <o-button @click="submitSelectedRoutes()" :disabled="!canSubmitnewRoutes">{{ t('submit') }}</o-button>
     </div>
-    <div v-if="playerPrivateState && playerPrivateState.routes.length > 0" class="flex flex-col justify-center">
-        <SelectRoutesComponent :routesToChoose="playerPrivateState.routes" :filedType="gameSettings.fieldType"
-            :selectedRoutesIds="selectedRoutesIds" :finished-routes-ids="playerPrivateState.finsishedRoutes">
-        </SelectRoutesComponent>
-    </div>
     <div v-if="publicPlayerState" class="flex justify-center">
         {{ t('trains') + ': ' + publicPlayerState.trains }} {{ t('stations') + ': ' + publicPlayerState.stations }}
     </div>
     <TrainCardsComponent v-if="playerPrivateState" :cards="playerPrivateState.trainCards"
         v-model="selectedTrainCardsIndeces" :flat-cards="flatCards">
     </TrainCardsComponent>
+    <div v-if="playerPrivateState && playerPrivateState.routes.length > 0" class="flex flex-col justify-center">
+        <SelectRoutesComponent :routesToChoose="playerPrivateState.routes" :filedType="gameSettings.fieldType"
+            :selectedRoutesIds="selectedRoutesIds" :finished-routes-ids="playerPrivateState.finsishedRoutes">
+        </SelectRoutesComponent>
+    </div>
 </template>
 
 <script setup lang="ts">
