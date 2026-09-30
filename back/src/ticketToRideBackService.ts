@@ -320,9 +320,10 @@ export class TicketToRideGameBackService implements GameBackService {
                 nextTurn()
             },
             SubmitNewRoutesAction: (action: SubmitNewRoutesAction) => {
+                const filteredRoutesIds = action.routesIds.filter(routeId => privatePlayerState.routesToChoose.includes(routeId))
                 const routesToChoose = [...privatePlayerState.routesToChoose]
-                removeElements(routesToChoose, action.routesIds)
-                privatePlayerState.routes.push(...action.routesIds)
+                removeElements(routesToChoose, filteredRoutesIds)
+                privatePlayerState.routes.push(...filteredRoutesIds)
                 privateState.routesDiscardPile.push(...routesToChoose)
                 privatePlayerState.routesToChoose = []
                 if (publicState.phase == TicketToRideGamePhase.CHOOSE_START_ROUTES && privateState.playersStates.every(ps => ps.routesToChoose.length == 0)) {

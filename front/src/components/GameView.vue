@@ -138,7 +138,7 @@ const { t } = useI18n({
         },
         ru: {
             chooseStartRoutes: 'Выберите как минимум два новых маршрута',
-            chooseRoutes: 'Выберите как минимум оди новый маршрут',
+            chooseRoutes: 'Выберите как минимум один новый маршрут',
             playersChooseRoutes: 'Игроки выбирают маршруты',
             notEnoughTrainCards: 'Недостаточно карт составов',
             notEnoughTrains: 'Недостаточно вагонов',
@@ -201,11 +201,14 @@ function getClosedTrainCards() {
     })
 }
 
+const newSelectedRoutesIds = computed(() => {
+    return selectedRoutesIds.value.filter(routeId => props.playerPrivateState?.routesToChoose.includes(routeId))
+})
+
 function submitSelectedRoutes() {
-    console.log('submitSelectedRoutes')
     performAction<SubmitNewRoutesAction>({
         type: 'SubmitNewRoutesAction',
-        routesIds: selectedRoutesIds.value
+        routesIds: newSelectedRoutesIds.value
     })
 }
 
@@ -237,9 +240,9 @@ const selectedCity = ref<CityWithRailPaths>()
 
 const canSubmitnewRoutes = computed(() => {
     if (props.gameState.phase == TicketToRideGamePhase.CHOOSE_START_ROUTES) {
-        return selectedRoutesIds.value.length >= 2
+        return newSelectedRoutesIds.value.length >= 2
     }
-    return selectedRoutesIds.value.length >= 1
+    return newSelectedRoutesIds.value.length >= 1
 })
 
 interface RouteWithCoords extends Route {

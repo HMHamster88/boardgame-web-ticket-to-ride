@@ -6,7 +6,7 @@ Download and build [boardgame-web-ts](https://github.com/HMHamster88/boardgame-w
 Create .env file
 
 ```
-GAMES_MODULES_PATH='<Path to boardgame-web-ts>\back\public\games-modules'
+GAMES_MODULES_PATH='<Path to boardgame-web-ts data dir>\games-modules'
 ```
 
 ```
