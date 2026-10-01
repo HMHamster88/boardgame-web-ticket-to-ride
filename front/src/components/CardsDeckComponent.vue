@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="flex justify-center mt-2">
+        <div class="flex justify-center">
             <div class="cards-container">
                 <img :src="routeCardBack" class="game-card-image" @click="emit('getNewRoutes')">
                 </img>
@@ -80,33 +80,34 @@ onMounted(() => {
 </script>
 
 <style>
+:root {
+    --card-width: 3rem;
+}
+
 .cards-container {
     display: flex;
     overflow: auto;
-    gap: 1rem;
-    padding-top: 1rem;
+    gap: 0.25rem;
     padding-bottom: 1rem;
 }
 
 .game-card-image {
     cursor: pointer;
-    border-radius: 10px;
+    border-radius: 5px;
     border: 1px solid #8f8f8f;
-    width: 6rem;
-    max-width: 6rem;
+    width: var(--card-width);
 }
 
 .flip-card {
   background-color: transparent;
-  width: 6rem;
-  max-width: 6rem;
+  width: var(--card-width);
   perspective: 1000px; /* Remove this if you don't want the 3D effect */
 }
 
 /* This container is needed to position the front and back side */
 .flip-card-inner {
   position: relative;
-  width: 100%;
+  width: var(--card-width);
   height: 100%;
   text-align: center;
   transition: transform 0.4s;
