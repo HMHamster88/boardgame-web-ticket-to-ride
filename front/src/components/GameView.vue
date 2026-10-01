@@ -1,6 +1,6 @@
 <template>
     <CardsDeckComponent :openedTrainCards="gameState.openedTrainCards" v-on:get-closed-train-cards="getClosedTrainCards"
-        v-on:get-new-routes="getNewRoutes" v-on:get-opened-train-card="getOpenedTrainCard">
+        v-on:get-new-routes="getNewRoutes" :get-opened-train-card="getOpenedTrainCard" :can-get-opened-train-card="canGetOpenedTrainCard">
 
     </CardsDeckComponent>
 
@@ -160,8 +160,18 @@ const { t } = useI18n({
     }
 })
 
-async function getOpenedTrainCard(index: number) {
+const canGetOpenedTrainCard = computed(() => {
     if (!isLocalPlayerTurn.value) {
+        return false
+    }
+    if (props.playerPrivateState && props.playerPrivateState.routesToChoose.length > 0) {
+        return false
+    }
+    return true
+})
+
+async function getOpenedTrainCard(index: number) {
+    if (!canGetOpenedTrainCard.value) {
         return
     }
     await performActionWithResponse<GetOpenedTrainCardAction, boolean>({
@@ -680,6 +690,18 @@ const props = defineProps({
         required: true
     }
 })
+
+/*watch(props.gameState.openedTrainCards, (newValue) => {
+    if (openedTrainCards.value.length == 0) {
+        openedTrainCards.value = newValue
+        flippedTrainCardIndex.value = undefined
+    } else {
+        window.setTimeout(() => {
+            openedTrainCards.value = newValue
+            flippedTrainCardIndex.value = undefined
+        }, 800)
+    }    
+})*/
 
 </script>
 
