@@ -160,11 +160,11 @@ const { t } = useI18n({
     }
 })
 
-function getOpenedTrainCard(index: number) {
+async function getOpenedTrainCard(index: number) {
     if (!isLocalPlayerTurn.value) {
         return
     }
-    performAction<GetOpenedTrainCardAction>({
+    await performActionWithResponse<GetOpenedTrainCardAction, boolean>({
         type: 'GetOpenedTrainCardAction',
         cardIndex: index
     })
@@ -644,8 +644,14 @@ function performAction<T extends GameAction>(action: T) {
     emit('performAction', action)
 }
 
+async function performActionWithResponse<A extends GameAction, R>(action: A): Promise<R> {
+    return props.performActionWithResponse(action)
+}
+
+type PerformActionWithResponse = (action: GameAction) => Promise<any>
+
 const emit = defineEmits<{
-    (e: 'performAction', action: GameAction): void
+    (e: 'performAction', action: GameAction): void,
 }>()
 
 const props = defineProps({
@@ -668,6 +674,10 @@ const props = defineProps({
     localPlayerIndex: {
         type: Number,
         required: false
+    },
+    performActionWithResponse: {
+        type: Function as PropType<PerformActionWithResponse>,
+        required: true
     }
 })
 

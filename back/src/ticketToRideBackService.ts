@@ -4,7 +4,7 @@ import {
     getMaxElement,
     getRandomInt,
     getShuffledArray,
-    handleMessage,
+    handleMessageWithResult,
     initEnumRecord,
     randomEnumVal,
     removeElements,
@@ -212,7 +212,7 @@ export class TicketToRideGameBackService implements GameBackService {
 
     }
 
-    async performAction(gameContext: GameContext, gameAction: GameAction, playerId: string): Promise<void> {
+    async performAction(gameContext: GameContext, gameAction: GameAction, playerId: string): Promise<any> {
         const game = gameContext.game
         const gameState = gameContext.gameState
         const settings = gameContext.gameSettings as TicketToRideGameSettings
@@ -261,18 +261,18 @@ export class TicketToRideGameBackService implements GameBackService {
         const handlers: MesasgeHandlers<actionTypes> = {
             GetOpenedTrainCardAction: (action: GetOpenedTrainCardAction) => {
                 if (!isActivePlayerAction) {
-                    return
+                    return false
                 }
 
                 if (privatePlayerState.routesToChoose.length > 0) {
                     gameContext.sendNotify(playerId, 'chooseRoutesFirst', {})
-                    return
+                    return false
                 }
 
                 const openedCard = publicState.openedTrainCards[action.cardIndex]
                 if (openedCard == TrainType.LOCOMOTIVE && privateState.openedCardsGetCount > 0) {
                     gameContext.sendNotify(playerId, 'youCantGetLocomotiveAsSecondCard', {})
-                    return
+                    return false
                 }
                 privatePlayerState.trainCards[openedCard] = privatePlayerState.trainCards[openedCard] + 1
                 publicState.openedTrainCards[action.cardIndex] = randomEnumVal(TrainType)
@@ -287,6 +287,7 @@ export class TicketToRideGameBackService implements GameBackService {
                 if (openedCard == TrainType.LOCOMOTIVE || privateState.openedCardsGetCount >= 2) {
                     nextTurn()
                 }
+                return true
             },
             GetClosedTrainCardsAction: (action: GetClosedTrainCardsAction) => {
                 if (!isActivePlayerAction) {
@@ -464,7 +465,7 @@ export class TicketToRideGameBackService implements GameBackService {
             }
         }
 
-        await handleMessage(handlers, gameAction)
+        return await handleMessageWithResult(handlers, gameAction)
     }
 
     cityGrpaphs: Map<TicketToRideFieldType, CityGraph> = new Map<TicketToRideFieldType, CityGraph>()
