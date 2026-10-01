@@ -67,6 +67,7 @@ const props = defineProps({
 .train-card {
     border-radius: 8px;
     cursor: pointer;
+    transition: margin-top 0.2s;
 }
 
 .train-card-image {
