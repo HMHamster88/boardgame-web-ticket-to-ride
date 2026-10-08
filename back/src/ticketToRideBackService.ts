@@ -103,7 +103,8 @@ export class TicketToRideGameBackService implements GameBackService {
             buildedRailPaths: [],
             stations: [],
             lastPlayerId: undefined,
-            longestPath: undefined
+            longestPath: undefined,
+            turnStepCounter: 0
         }
 
         const routesDeck = getShuffledArray(fieldData.routes.filter(route => !route.isLong).map(route => route.id))
@@ -159,7 +160,8 @@ export class TicketToRideGameBackService implements GameBackService {
     getDefaultSettings(): GameSettings {
         const settings: TicketToRideGameSettings = {
             id: '',
-            fieldType: TicketToRideFieldType.EUROPE
+            fieldType: TicketToRideFieldType.EUROPE,
+            twoStepsTurn: false
         }
         return settings
     }
@@ -238,6 +240,15 @@ export class TicketToRideGameBackService implements GameBackService {
             BuildStationAction
 
         const nextTurn = () => {
+            privateState.openedCardsGetCount = 0
+            if (settings.twoStepsTurn) {
+                publicState.turnStepCounter++
+                if (publicState.turnStepCounter > 1) {
+                    publicState.turnStepCounter = 0
+                } else {
+                    return
+                }
+            }
             if (playerId == publicState.lastPlayerId) {
                 this.countPoints(publicState, privateState, settings.fieldType, statistics)
                 const winner = getMaxElement(publicState.playersStates, ps => ps.points!)!
@@ -248,7 +259,6 @@ export class TicketToRideGameBackService implements GameBackService {
             publicState.activePlayerIndex = (publicState.activePlayerIndex + 1) % game.players.length
             statistics.turnCount++
             publicState.phase = TicketToRideGamePhase.PLAYER_TURN
-            privateState.openedCardsGetCount = 0
         }
 
         const checkRoutes = () => {

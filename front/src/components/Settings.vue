@@ -1,6 +1,9 @@
 <template>
     <div>
         <div class="settings-header">
+            <o-field>
+                <o-switch :label="t('twoStepsTurn')" v-model="settings.twoStepsTurn" />
+            </o-field>
             <o-field :label="t('fieldType')">
                 <o-select id="type" v-model="settings.fieldType" :options="fieldTypes" />
             </o-field>
@@ -11,7 +14,7 @@
 
 <script setup lang="ts">
 
-import { OField, OSelect } from '@oruga-ui/oruga-next';
+import { OField, OSelect, OSwitch } from '@oruga-ui/oruga-next';
 
 import type { GameAction } from 'boardgame-web-common';
 import { TicketToRideFieldType, type TicketToRideGameSettings } from 'ticket-to-ride-back';
@@ -26,12 +29,14 @@ const { t } = useI18n({
             fieldTypes: {
                 EUROPE: 'Europe'
             },
+            twoStepsTurn: 'Two Steps Turn',
             fieldType: 'Field Type:'
         },
         ru: {
             fieldTypes: {
                 EUROPE: 'Европа'
             },
+            twoStepsTurn: 'Два шага на ход',
             fieldType: 'Тип Поля:'
         }
     }

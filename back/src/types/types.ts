@@ -36,6 +36,7 @@ export enum TicketToRideGamePhase {
 
 export interface TicketToRideGameSettings extends GameSettings {
     fieldType: TicketToRideFieldType
+    twoStepsTurn: boolean
 }
 
 export interface TicketToRidePlayerPublicState extends PlayerPublicState {
@@ -85,6 +86,7 @@ export interface TicketToRidePublicGameState extends GamePublicState {
     stations: Station[]
     lastPlayerId: string | undefined
     longestPath: LongestPath | undefined
+    turnStepCounter: number
 }
 
 export type TrainCards = Record<TrainType, number>
