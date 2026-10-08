@@ -9,7 +9,7 @@
         <image :height="gameField.size.height" :width="gameField.size.width" x="0" y="0"
             xmlns:xlink="http://www.w3.org/1999/xlink" :xlink:href="gameFieldImage" />
 
-        <line v-for="route in selectedRoutesWithCoords" :x1="route.fromCoords.x" :y1="route.fromCoords.y"
+        <line v-if="playerGameSettings.showLinesForSelectedRoute" v-for="route in selectedRoutesWithCoords" :x1="route.fromCoords.x" :y1="route.fromCoords.y"
             :x2="route.toCoords.x" :y2="route.toCoords.y" class="selected-route-line"
             vector-effect="non-scaling-stroke">
         </line>
@@ -109,6 +109,7 @@ import CardsDeckComponent from './CardsDeckComponent.vue';
 import { fieldsImages } from './graphics/images.ts';
 import SelectRoutesComponent from './SelectRoutesComponent.vue';
 import TrainCardsComponent from './TrainCardsComponent.vue';
+import { type TicketToRidePlayerGameSettings } from './types'
 
 const oruga = useOruga();
 
@@ -593,7 +594,7 @@ function buildStation() {
 function cityClass(city: CityData) {
     return {
         'city': true,
-        'route-selected-city': selectedCitiesIds.value.includes(city.id),
+        'route-selected-city': selectedCitiesIds.value.includes(city.id) && props.playerGameSettings.showCitiesForSelectedRoute,
         'selected-city': city.id == selectedCity.value?.id
     }
 }
@@ -688,20 +689,12 @@ const props = defineProps({
     performActionWithResponse: {
         type: Function as PropType<PerformActionWithResponse>,
         required: true
-    }
+    },
+    playerGameSettings: {
+        type: Object as PropType<TicketToRidePlayerGameSettings>,
+        required: true
+    },
 })
-
-/*watch(props.gameState.openedTrainCards, (newValue) => {
-    if (openedTrainCards.value.length == 0) {
-        openedTrainCards.value = newValue
-        flippedTrainCardIndex.value = undefined
-    } else {
-        window.setTimeout(() => {
-            openedTrainCards.value = newValue
-            flippedTrainCardIndex.value = undefined
-        }, 800)
-    }    
-})*/
 
 </script>
 

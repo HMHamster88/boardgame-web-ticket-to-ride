@@ -4,7 +4,7 @@ import path from 'node:path';
 import packageInfo from './package.json' with { type: 'json' };
 configDotenv()
 
-const gamesModulesPath = process.env.GAMES_MODULES_PATH
+const gamesModulesPath = process.env.GAMES_MODULES_PATH || '../boardgame-web-ts/back/dev-data/games-modules'
 
 async function copyFolder(source, destination) {
     try {
