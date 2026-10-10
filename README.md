@@ -1,12 +1,15 @@
-Catan for [boardgame-web-ts](https://github.com/HMHamster88/boardgame-web-ts)
+Ticket to Ride for [boardgame-web-ts](https://github.com/HMHamster88/boardgame-web-ts)
+
+![example image](Ticket-to-Ride.png)
 
 To build:
 
 Download and build [boardgame-web-ts](https://github.com/HMHamster88/boardgame-web-ts)
-Create .env file
+
+Create .env file:
 
 ```
-GAMES_MODULES_PATH='<Path to boardgame-web-ts data dir>\games-modules'
+GAMES_MODULES_PATH='<Path to boardgame-web-ts data dir>\games-modules' (Default: '../boardgame-web-ts/back/dev-data/games-modules')
 ```
 
 ```
