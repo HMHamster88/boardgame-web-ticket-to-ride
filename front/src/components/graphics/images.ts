@@ -1,6 +1,8 @@
 import { TicketToRideFieldType, TrainType } from 'ticket-to-ride-back'
 import EUROPE from '../../assets/fields/EUROPE/EUROPE.webp'
+import USSR from '../../assets/fields/USSR/USSR.webp'
 import { europeRouteImages } from './europeRoutesImages'
+import { ussrRoutesImages } from './ussrRoutesImages'
 
 import blackTrainCard from '../../assets/train-cards/black.webp'
 import blueTrainCard from '../../assets/train-cards/blue.webp'
@@ -14,11 +16,13 @@ import yellowTrainCard from '../../assets/train-cards/yellow.webp'
 
 
 export const fieldsImages: Record<TicketToRideFieldType, string> = {
-    [TicketToRideFieldType.EUROPE]: EUROPE
+    [TicketToRideFieldType.EUROPE]: EUROPE,
+    [TicketToRideFieldType.USSR]: USSR
 }
 
 export const routesImages: Record<TicketToRideFieldType, Record<string, string>> = {
-    [TicketToRideFieldType.EUROPE]: europeRouteImages
+    [TicketToRideFieldType.EUROPE]: europeRouteImages,
+    [TicketToRideFieldType.USSR]: ussrRoutesImages
 }
 
 export const trainCardsImages: Record<TrainType, string> = {

@@ -52,7 +52,9 @@ export interface FieldData {
 }
 
 import EUROPE from "./EUROPE.json" with { type: "json" };
+import USSR from "./USSR.json" with { type: "json" };
 
 export const fieldsDatas: Record<TicketToRideFieldType, FieldData> = {
-    [TicketToRideFieldType.EUROPE]: EUROPE as FieldData
+    [TicketToRideFieldType.EUROPE]: EUROPE as FieldData,
+    [TicketToRideFieldType.USSR]: USSR as FieldData
 }

@@ -27,14 +27,16 @@ const { t } = useI18n({
     messages: {
         en: {
             fieldTypes: {
-                EUROPE: 'Europe'
+                EUROPE: 'Europe',
+                USSR: 'USSR'
             },
             twoStepsTurn: 'Two Steps Turn',
             fieldType: 'Field Type:'
         },
         ru: {
             fieldTypes: {
-                EUROPE: 'Европа'
+                EUROPE: 'Европа',
+                USSR: 'СССР'
             },
             twoStepsTurn: 'Два шага на ход',
             fieldType: 'Тип Поля:'

@@ -9,7 +9,7 @@ const gamesModulesPath = process.env.GAMES_MODULES_PATH || '../boardgame-web-ts/
 async function copyFolder(source, destination) {
     try {
         await cp(source, destination, { recursive: true });
-        console.log('Folder copied successfully!');
+        console.log('Folder copied successfully! to ' + destination);
     } catch (err) {
         console.error('Error copying folder:', err);
     }

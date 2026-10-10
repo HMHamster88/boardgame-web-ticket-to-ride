@@ -396,6 +396,7 @@ function getMaxColorCards(trainCards: TrainCards): [TrainType, number] {
 }
 
 async function railPathClick(railPath: RailPathData) {
+    console.log(`Rail path ${JSON.stringify(railPath)}`)
     if (!isLocalPlayerTurn.value || !publicPlayerState.value || !props.playerPrivateState) {
         return
     }

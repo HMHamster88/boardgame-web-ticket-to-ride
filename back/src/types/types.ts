@@ -27,6 +27,7 @@ export function trainTypeFromRailColor(railColor: RailColor) {
 
 export enum TicketToRideFieldType {
     EUROPE = 'EUROPE',
+    USSR = 'USSR'
 }
 
 export enum TicketToRideGamePhase {
