@@ -123,7 +123,9 @@ export const pointsByRailLength: Record<number, number> = {
     2: 2,
     3: 4,
     4: 7,
+    5: 10,
     6: 15,
+    7: 18,
     8: 21
 }
 
