@@ -17,6 +17,10 @@
             :style="cityStyle(city)" :id="city.id" :cx="city.cx" :cy="city.cy" :r="gameField.cityRadius" />
         <g v-for="railPath in gameField.railPaths" :id="railPath.id" @click="railPathClick(railPath)" class="rail-path"
             :style="railPathStyle(railPath)" :class="railPathClass(railPath)">
+            <g v-if="selectedRailPathCities && debug">
+                <circle v-for="city in selectedRailPathCities" class="city route-selected-city" 
+                :id="city.id" :cx="city.cx" :cy="city.cy" :r="gameField.cityRadius" />
+            </g>
             <rect v-for="rect in railPath.rects" :x="rect.x" :y="rect.y" :width="gameField.rectSize.width"
                 :height="gameField.rectSize.height" :transform="rect.transform" :rx="gameField.rectSize.height / 4"
                 :ry="gameField.rectSize.height / 4" vector-effect="non-scaling-stroke">
@@ -256,6 +260,13 @@ const canSubmitnewRoutes = computed(() => {
     return newSelectedRoutesIds.value.length >= 1
 })
 
+const selectedRailPathCities = computed(() => {
+    if (!selectedRailPath.value) {
+        return undefined
+    }
+    return [citiesById.value.get(selectedRailPath.value.from) as CityData, citiesById.value.get(selectedRailPath.value.to) as CityData]
+})
+
 interface RouteWithCoords extends Route {
     fromCoords: Vector2DLike
     toCoords: Vector2DLike
@@ -322,10 +333,6 @@ function railPathStyle(railPath: RailPathData) {
     }
     return result
 }
-
-/*function railPathFilter(railPath: RailPathData) {
-    return longestPathPlayer(railPath) ? 'invert(100%)' : undefined
-}*/
 
 function railPathClass(railPath: RailPathData) {
     return {
@@ -695,6 +702,10 @@ const props = defineProps({
         type: Object as PropType<TicketToRidePlayerGameSettings>,
         required: true
     },
+    debug: {
+        type: Boolean,
+        required: false
+    }
 })
 
 </script>

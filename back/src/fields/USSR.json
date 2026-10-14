@@ -350,9 +350,9 @@
             ]
         },
         {
-            "id": "Алма-Ата-Алма-Ата-BLUE",
+            "id": "Алма-Ата-Целиноград-BLUE",
             "from": "Алма-Ата",
-            "to": "Алма-Ата",
+            "to": "Целиноград",
             "color": "BLUE",
             "isTunnel": false,
             "locomotiveCount": 0,
@@ -1740,9 +1740,9 @@
             ]
         },
         {
-            "id": "Свердловск-Казань-GRAY",
+            "id": "Свердловск-Москва-GRAY",
             "from": "Свердловск",
-            "to": "Казань",
+            "to": "Москва",
             "color": "GRAY",
             "isTunnel": false,
             "locomotiveCount": 0,
