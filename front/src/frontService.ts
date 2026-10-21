@@ -1,4 +1,4 @@
-import type { GameFrontService, PlayerGameSettings } from "boardgame-web-common/front";
+import type { GameFrontService, PlayerGameInstanceSettings, PlayerGameSettings } from "boardgame-web-common/front";
 import type { Component } from "vue";
 
 import GameView from "./components/GameView.vue";
@@ -6,14 +6,16 @@ import PlayerComponent from "./components/PlayerComponent.vue";
 import Settings from "./components/Settings.vue";
 import StatisticsComponent from "./components/StatisticsComponent.vue";
 import { createOrMigrateObject, type ObjectMigration } from "boardgame-web-common";
-import type { TicketToRidePlayerGameSettings } from "./components/types.ts";
+import type { TicketToRidePlayerGameInstanceSettings, TicketToRidePlayerGameSettings } from "./components/types.ts";
 import PlayerGameSettingsComponent from './components/PlayerGameSettingsComponent.vue'
 
 export const gameType = "TICKET_TO_RIDE"
 
 const playerSettngsMigrations: ObjectMigration<TicketToRidePlayerGameSettings>[] = []
+const playerGameInstanceSettingsMigrations: ObjectMigration<TicketToRidePlayerGameInstanceSettings>[] = []
 
 export class TicketToRideFrontService implements GameFrontService {
+
     playerSettingsComponent: Component | undefined = PlayerGameSettingsComponent
     createOrMigratePlayerGameSettings: ((settings: PlayerGameSettings | undefined) => PlayerGameSettings) | undefined =
         (settings: PlayerGameSettings | undefined) => {
@@ -22,6 +24,16 @@ export class TicketToRideFrontService implements GameFrontService {
                     version: 0,
                     showLinesForSelectedRoute: true,
                     showCitiesForSelectedRoute: true
+                }
+                return newSettings
+            })
+        }
+    createOrMigratePlayerGameInstanceSettings: ((settings: PlayerGameInstanceSettings | undefined) => PlayerGameInstanceSettings) | undefined =
+        (settings: PlayerGameInstanceSettings | undefined) => {
+            return createOrMigrateObject(settings as TicketToRidePlayerGameInstanceSettings, playerGameInstanceSettingsMigrations, () => {
+                const newSettings: TicketToRidePlayerGameInstanceSettings = {
+                    version: 0,
+                    selectedRoutesIds: []
                 }
                 return newSettings
             })

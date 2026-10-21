@@ -113,7 +113,7 @@ import CardsDeckComponent from './CardsDeckComponent.vue';
 import { fieldsImages } from './graphics/images.ts';
 import SelectRoutesComponent from './SelectRoutesComponent.vue';
 import TrainCardsComponent from './TrainCardsComponent.vue';
-import { type TicketToRidePlayerGameSettings } from './types'
+import { type TicketToRidePlayerGameInstanceSettings, type TicketToRidePlayerGameSettings } from './types'
 
 const oruga = useOruga();
 
@@ -248,7 +248,7 @@ const selectedTrainCards = computed(() => {
 })
 
 const selectedRailPath = ref<RailPathData>()
-const selectedRoutesIds = ref<string[]>([])
+const selectedRoutesIds = computed(() => props.playerGameInstaceSettings.selectedRoutesIds)
 const selectedRoutes = computed(() => gameField.value.routes.filter(route => selectedRoutesIds.value.includes(route.id)))
 
 const selectedCity = ref<CityWithRailPaths>()
@@ -700,6 +700,10 @@ const props = defineProps({
     },
     playerGameSettings: {
         type: Object as PropType<TicketToRidePlayerGameSettings>,
+        required: true
+    },
+    playerGameInstaceSettings: {
+        type: Object as PropType<TicketToRidePlayerGameInstanceSettings>,
         required: true
     },
     debug: {
