@@ -7,7 +7,6 @@
                 <img :src="trainCardBack" class="game-card-image" @click="emit('getClosedTrainCards')">
                 </img>
                 <div v-for="trainCard, index in animatedOpenedCards" class="flip-card">
-                    {{ openedTrainCards[index] }}
                     <div class="flip-card-inner" :class="flippedTrainCardIndex == index ? 'flipped-card' : ''">
                         <div class="flip-card-front">
                         <img :src="trainCardsImages[trainCard]" @click="clickOpenedCard(index)" class="game-card-image">
