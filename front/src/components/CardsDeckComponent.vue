@@ -7,6 +7,7 @@
                 <img :src="trainCardBack" class="game-card-image" @click="emit('getClosedTrainCards')">
                 </img>
                 <div v-for="trainCard, index in animatedOpenedCards" class="flip-card">
+                    {{ openedTrainCards[index] }}
                     <div class="flip-card-inner" :class="flippedTrainCardIndex == index ? 'flipped-card' : ''">
                         <div class="flip-card-front">
                         <img :src="trainCardsImages[trainCard]" @click="clickOpenedCard(index)" class="game-card-image">
@@ -24,7 +25,7 @@
 
 <script setup lang="ts">
 import { TrainType } from 'ticket-to-ride-back';
-import { onMounted, ref, watch, type PropType } from 'vue';
+import { computed, ref, type PropType } from 'vue';
 import { trainCardsImages } from './graphics/images';
 
 import routeCardBack from '../assets/route-back.webp';
@@ -35,9 +36,18 @@ const emit = defineEmits<{
     (e: 'getClosedTrainCards'): void
 }>()
 
-const animatedOpenedCards = ref<TrainType[]>()
+const animatedOpenedCards = computed<TrainType[]>(() =>{
+    if (!flippedTrainCardIndex.value) {
+        return props.openedTrainCards
+    }
+    const result = [...props.openedTrainCards]
+    result[flippedTrainCardIndex.value.valueOf()] = oldCard.value!
+    return result
+})
 
 const flippedTrainCardIndex = ref<Number>()
+
+const oldCard = ref<TrainType>()
 
 const flipAnimationLength = 400
 
@@ -46,6 +56,7 @@ async function clickOpenedCard(index: number) {
         return
     }
     flippedTrainCardIndex.value = index
+    oldCard.value = props.openedTrainCards[index]
     await props.getOpenedTrainCard(index)
     window.setTimeout(() => {
         flippedTrainCardIndex.value = undefined
@@ -65,16 +76,6 @@ const props = defineProps({
         type: Boolean,
         required: true
     }
-})
-
-watch(props.openedTrainCards, newValue => {
-    window.setTimeout(() => {
-        animatedOpenedCards.value = [...newValue]
-    }, flipAnimationLength)
-})
-
-onMounted(() => {
-    animatedOpenedCards.value = [...props.openedTrainCards]
 })
 
 </script>
